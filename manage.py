@@ -1,4 +1,4 @@
-from QAQuery import create_app
+from QAQuality import create_app
 
 
 app = create_app()
