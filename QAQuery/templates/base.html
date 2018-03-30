@@ -4,18 +4,15 @@
     <meta charset="UTF-8">
     <title>QAQuery</title>
     <link rel="stylesheet" href="/static/css/uikit.min.css" />
-    <link rel="stylesheet" href="/static/css/uikit_theme.css" />
+    <link rel="stylesheet" href="/static/css/theme.css?741">
     <script src="/static/js/jquery.js"></script>
-    <script src="/static/js/uikit.min.js"></script>
+    <script src="/static/js/uikit.min.js?741"></script>
 </head>
 
 <body class="tm-background">
     <nav class="tm-navbar uk-navbar uk-navbar-attached">
-        <div class="uk-container uk-container-left">
-            <a href="/" class="uk-navbar-item uk-logo">QAQuery</a>
-        </div>
-
-        <div class="uk-container uk-container-center">
+        <div class="uk-container-center">
+            <a href="/" class="uk-navbar-item uk-logo"><i class="uk-icon-glass"></i></a>
 
             <ul class="uk-navbar-nav uk-hidden-small">
                 <li><a href="/">Home</a></li>
@@ -25,5 +22,17 @@
             </ul>
         </div>
     </nav>
+
+    <div class="tm-middle uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
+        {%- block page_content %}
+        {%- endblock page_content %}
+    </div>
+
+    <div class="tm-footer uk-container uk-container-expand uk-text-center uk-position-bottom uk-margin-large-bottom">
+        <div class="uk-panel">
+            <p>From williamfzc, Powered by flask+uikit. </p>
+        </div>
+    </div>
+
 </body>
 </html>
