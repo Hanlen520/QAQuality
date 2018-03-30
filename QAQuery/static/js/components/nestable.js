@@ -1,4 +1,4 @@
-/*! UIkit 2.25.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.5 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /*
  * Based on Nestable jQuery Plugin - Copyright (c) 2012 David Bushell - http://dbushell.com/
  */
@@ -6,13 +6,13 @@
 
     var component;
 
-    if (window.UIkit) {
-        component = addon(UIkit);
+    if (window.UIkit2) {
+        component = addon(UIkit2);
     }
 
-    if (typeof define == "function" && define.amd) {
-        define("uikit-nestable", ["uikit"], function(){
-            return component || addon(UIkit);
+    if (typeof define == 'function' && define.amd) {
+        define('uikit-nestable', ['uikit'], function(){
+            return component || addon(UIkit2);
         });
     }
 
@@ -20,16 +20,16 @@
 
     "use strict";
 
-    var hasTouch     = 'ontouchstart' in window,
+    var hasTouch     = 'ontouchstart' in window || 'MSGesture' in window || window.PointerEvent,
         html         = UI.$html,
         touchedlists = [],
         $win         = UI.$win,
         draggingElement;
 
-    var eStart  = hasTouch ? 'touchstart'  : 'mousedown',
-        eMove   = hasTouch ? 'touchmove'   : 'mousemove',
-        eEnd    = hasTouch ? 'touchend'    : 'mouseup',
-        eCancel = hasTouch ? 'touchcancel' : 'mouseup';
+    var eStart  = hasTouch ? ('MSGesture' in window || window.PointerEvent ? 'pointerdown':'touchstart')    : 'mousedown',
+        eMove   = hasTouch ? ('MSGesture' in window || window.PointerEvent ? 'pointermove':'touchmove')     : 'mousemove',
+        eEnd    = hasTouch ? ('MSGesture' in window || window.PointerEvent ? 'pointerup':'touchend')        : 'mouseup',
+        eCancel = hasTouch ? ('MSGesture' in window || window.PointerEvent ? 'pointercancel':'touchcancel') : 'mouseup';
 
 
     UI.component('nestable', {
@@ -130,7 +130,8 @@
 
             var onStartEvent = function(e) {
 
-                var handle = UI.$(e.target);
+                var handle = UI.$(e.target),
+                    link   = handle.is('a[href]') ? handle:handle.parents('a[href]');
 
                 if (e.target === $this.element[0]) {
                     return;
@@ -151,7 +152,7 @@
                     }
                 }
 
-                if (!handle.length || $this.dragEl || (!hasTouch && e.button !== 0) || (hasTouch && e.touches.length !== 1)) {
+                if (!handle.length || $this.dragEl || (!hasTouch && e.button !== 0) || (hasTouch && e.touches && e.touches.length !== 1)) {
                     return;
                 }
 
@@ -160,6 +161,8 @@
                 }
 
                 $this.delayMove = function(evt) {
+
+                    link = false;
 
                     evt.preventDefault();
                     $this.dragStart(e);
@@ -171,6 +174,15 @@
                 $this.delayMove.x         = parseInt(e.pageX, 10);
                 $this.delayMove.y         = parseInt(e.pageY, 10);
                 $this.delayMove.threshold = $this.options.idlethreshold;
+
+                if (link.length && eEnd == 'touchend') {
+
+                    $this.one(eEnd, function(){
+                        if (link && link.attr('href').trim()) {
+                            location.href = link.attr('href');
+                        }
+                    });
+                }
 
                 e.preventDefault();
             };
@@ -201,7 +213,7 @@
 
                 if ($this.dragEl) {
                     e.preventDefault();
-                    $this.dragStop(hasTouch ? e.touches[0] : e);
+                    $this.dragStop(hasTouch && e.touches ? e.touches[0] : e);
                 }
 
                 draggingElement = false;
@@ -236,10 +248,12 @@
                             item  = {}, attribute,
                             sub   = li.children(list.options._listClass);
 
-                        for (var i = 0; i < li[0].attributes.length; i++) {
+                        for (var i = 0, attr, val; i < li[0].attributes.length; i++) {
                             attribute = li[0].attributes[i];
                             if (attribute.name.indexOf('data-') === 0) {
-                                item[attribute.name.substr(5)] = UI.Utils.str2json(attribute.value);
+                                attr       = attribute.name.substr(5);
+                                val        =  UI.Utils.str2json(attribute.value);
+                                item[attr] = (val || attribute.value=='false' || attribute.value=='0') ? val:attribute.value;
                             }
                         }
 
@@ -323,7 +337,7 @@
         },
 
         toggleItem: function(li) {
-            this[li.hasClass(this.options.collapsedClass) ? "expandItem":"collapseItem"](li);
+            this[li.hasClass(this.options.collapsedClass) ? 'expandItem':'collapseItem'](li);
         },
 
         expandItem: function(li) {
@@ -354,7 +368,7 @@
         setParent: function(li) {
 
             if (li.children(this.options._listClass).length) {
-                li.addClass("uk-parent");
+                li.addClass('uk-parent');
             }
         },
 
@@ -610,7 +624,7 @@
                 }
 
                 if (!parent.children().length) {
-                    if (!parent.data("nestable")) this.unsetParent(parent.parent());
+                    if (!parent.data('nestable')) this.unsetParent(parent.parent());
                 }
 
                 this.checkEmptyList(this.dragRootEl);
