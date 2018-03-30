@@ -3,38 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>QAQuality</title>
-    <link href="https://cdn.bootcss.com/uikit/3.0.0-beta.40/css/uikit.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js"></script>
-    <script src="https://cdn.bootcss.com/uikit/3.0.0-beta.40/js/uikit.min.js"></script>
-    <script src="https://cdn.bootcss.com/uikit/3.0.0-beta.40/js/uikit-icons.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 </head>
 
 <body>
-    <nav class="uk-navbar">
-        <div class="uk-container-left uk-margin-large-left">
-            <a href="/" class="uk-navbar-item uk-logo">QuickApp Quality</a>
-        </div>
-        <div class="uk-container-right uk-position-right uk-margin-large-right">
-            <ul class="uk-navbar-nav">
-                <li><a href="/">Home</a></li>
-                <li><a href="/analysis">Analysis</a></li>
-                <li><a href="/tester">Tester</a></li>
-                <li><a href="/helper">Help</a></li>
-            </ul>
-        </div>
-    </nav>
 
-    <div class="tm-middle uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
-        {%- block page_content %}
-        {%- endblock page_content %}
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+      <h5 class="my-0 mr-md-auto font-weight-normal">QAQuality</h5>
+      <nav class="my-2 my-md-0 mr-md-3">
+        <a class="p-2 text-dark" href="#">Home</a>
+        <a class="p-2 text-dark" href="#">Analysis</a>
+        <a class="p-2 text-dark" href="#">Tester</a>
+      </nav>
+      <a class="btn btn-outline-primary" href="#">Sign up</a>
     </div>
 
-    <div class="tm-footer uk-container uk-container-expand uk-text-center uk-position-bottom uk-margin-large-bottom">
-        <div class="uk-panel">
-            <p>@williamfzc, Powered by flask+uikit. </p>
-        </div>
-    </div>
+    <div class="container">
+      <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+          <h1 class="display-4">Pricing</h1>
+          <p class="lead">Quickly build an effective pricing table for your potential customers with this Bootstrap example. It's built with default Bootstrap components and utilities with little customization.</p>
+      </div>
 
-</body>
+      <footer class="pt-4 my-md-5 pt-md-5 border-top center-block">
+        <div class="container">
+            <span class="text-muted">Place sticky footer content here.</span>
+        </div>
+      </footer>
+    </div>
+  </body>
 </html>
