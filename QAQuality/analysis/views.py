@@ -9,4 +9,4 @@ def index():
     if form.validate_on_submit():
         app_name = form.app_name.data
         return 'hi {}'.format(app_name)
-    return render_template('analysis/index.html')
+    return render_template('analysis/index.html', form=form)
