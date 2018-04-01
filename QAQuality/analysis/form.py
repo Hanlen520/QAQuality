@@ -4,5 +4,8 @@ from wtforms.validators import DataRequired
 
 
 class AppNameForm(FlaskForm):
-    app_name = StringField('App name', validators=[DataRequired()])
+    app_name = StringField('', validators=[DataRequired()], render_kw={
+                    "placeholder": 'What\'s your app name?',
+                    "value": ''
+                })
     submit = SubmitField('Commit')
