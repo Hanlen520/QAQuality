@@ -1,13 +1,13 @@
 from flask import Flask
 from flask_wtf.csrf import CSRFProtect
-from flask_bootstrap import Bootstrap
+# from flask_bootstrap import Bootstrap
 
 
 def create_app():
     app = Flask(__name__)
 
-    bootstrap = Bootstrap()
-    bootstrap.init_app(app)
+    # bootstrap = Bootstrap()
+    # bootstrap.init_app(app)
 
     app.config['SECRET_KEY'] = 'testonly'
     csrf_protect = CSRFProtect()
